@@ -235,9 +235,10 @@ if "$zoneid" = "90" then
         gosub JOINLOGIC
         gosub MOVE 2
     }
-if (("$zoneid" = "150") && ("$game" = "DRF")) then
+#if (("$zoneid" = "150") && ("$game" = "DRF")) then
+if "$zoneid" = "150" then
      {
-         gosub move portal
+          gosub move portal
           pause 0.3
           send go exit portal
           pause 0.5
@@ -257,14 +258,14 @@ if matchre("(rat|rath|ratha)","%destination") then
                 }
             goto CROSSING
     }
-if "$zoneid" = "150" then
-    {
-            gosub MOVE 2
-            var toratha 0
-            gosub JOINLOGIC
-            gosub MOVE 2
-            goto cheatstart
-    }
+#if "$zoneid" = "150" then
+#    {
+#            gosub MOVE 2
+#            var toratha 0
+#            gosub JOINLOGIC
+#            gosub MOVE 2
+#            goto cheatstart
+#    }
 if "$zoneid" = "67" && matchre("$roomname","Thieves' Guild") then
     {
         gosub move 380
@@ -524,7 +525,7 @@ if matchre("(fan|fang|cov|cove)","%destination") then
                     echo YOU ARE IN THE FALLEN, GO FIND A FUCKING MEETING PORTAL YOU LAZY FUCK
                     exit
                 }
-            goto CROSSING
+            goto fangcove
     }
 goto NODESTINATION
 
@@ -1716,6 +1717,69 @@ FORD_2:
   if "$zoneid" = "126" then gosub MOVE 103
   if "$zoneid" = "127" then gosub MOVE 24
   goto ARRIVED
+
+fangcove:
+  pause .0001
+  pause .0001
+  #action goto notpremium when ^A servant bars your way\, whispering
+  if "$zoneid" = "106" then
+            {
+                gosub MOVE 101
+                gosub FERRYLOGIC
+            }
+  if "$zoneid" = "92" then gosub MOVE 1
+  if "$zoneid" = "95" then gosub MOVE 1
+  if "$zoneid" = "98a" then gosub MOVE 91
+  if "$zoneid" = "98" then gosub MOVE 86
+  if "$zoneid" = "47a" then gosub MOVE 2
+  if "$zoneid" = "127" then gosub MOVE 24
+  if "$zoneid" = "41" then gosub MOVE 53
+  if "$zoneid" = "34a" then gosub MOVE 134
+  if "$zoneid" = "34" then 
+            {
+                if "$roomid" >= 121 then gosub MOVE 137
+                else gosub MOVE 15
+            }
+  if "$zoneid" = "33a" then gosub MOVE 46
+  if "$zoneid" = "33" then gosub MOVE 1
+  if "$zoneid" = "14c" then 
+            {
+                if "$roomid" >= "10" then gosub move 22
+                else gosub move 21
+            }
+  if "$zoneid" = "14b" then gosub MOVE 217
+  if "$zoneid" = "13" then gosub MOVE 71
+  if "$zoneid" = "12a" then gosub MOVE 60
+  if "$zoneid" = "9b" then gosub MOVE 9
+  if "$zoneid" = "10" then gosub MOVE 116
+  if "$zoneid" = "11" then gosub MOVE 2
+  if "$zoneid" = "7c" then gosub MOVE 1
+  if "$zoneid" = "7" then gosub MOVE 349
+  if "$zoneid" = "6" then gosub MOVE 23
+  if "$zoneid" = "8" then gosub MOVE 43
+  if "$zoneid" = "4a" then gosub MOVE 15
+  if "$zoneid" = "4" then gosub MOVE 14
+  if "$zoneid" = "50" then 
+            {
+                if "$roomid" <= "14" then gosub MOVE 8
+                else gosub MOVE 30
+            }
+  if "$zoneid" = "112" then gosub MOVE 112
+  if "$zoneid" = "58" then gosub MOVE 2
+  if "$zoneid" = "63" then gosub MOVE 112
+  if "$zoneid" = "62" then gosub MOVE 100
+  if "$zoneid" = "65" then gosub MOVE 1
+  if "$zoneid" = "69" then gosub MOVE 1
+  if "$zoneid" = "68a" then gosub MOVE 30
+  if "$zoneid" = "68" then gosub MOVE 225
+  if "$zoneid" = "67" then gosub MOVE 1
+  if "$zoneid" = "123" then gosub MOVE 169
+  if "$zoneid" = "126" then gosub MOVE 49
+  gosub MOVE portal
+  pause .5
+  send go meeting portal
+  pause .5
+  goto ARRIVED  
   
 AESRYBACK:
   pause 0.1
