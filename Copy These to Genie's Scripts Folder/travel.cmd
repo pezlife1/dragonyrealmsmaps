@@ -919,6 +919,7 @@ ILITHI:
   if "$zoneid" = "11" then gosub MOVE 2
   if "$zoneid" = "7" then gosub MOVE 349
   if "$zoneid" = "112" then gosub MOVE 112
+  if "$zoneid" = "6" then gosub MOVE 23
   if "$zoneid" = "1" then
             {
                 if "$guild" = "Thief" then
@@ -1533,6 +1534,7 @@ FORD:
   if "$zoneid" = "14b" then gosub MOVE 217
   if "$zoneid" = "11" then gosub MOVE 2
   if "$zoneid" = "7" then gosub MOVE 349
+  if "$zoneid" = "6" then gosub MOVE 23
   if "$zoneid" = "1" then
             {
                 if "$guild" = "Thief" then
