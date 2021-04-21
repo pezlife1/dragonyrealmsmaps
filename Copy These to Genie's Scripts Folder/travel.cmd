@@ -1065,7 +1065,7 @@ ILITHI_2:
                 if "%detour" = "adan'f" then gosub MOVE 29
                 goto ARRIVED
             }
-  if "$zoneid" = "68" && "$guild" = "Thief" then gosub MOVE 225
+  if "$zoneid" = "68" && $Athletics.Ranks > %shardwalls then gosub MOVE 225
   if "$zoneid" = "68" && %shardcitizen = "yes" then gosub MOVE 1
   if "$zoneid" = "68" && %shardcitizen = "no" then gosub MOVE 15
   if "$zoneid" = "67" && "$guild" = "Thief" && matchre("(steel|ylono|fayrin|horse|spire|wyvern)","%detour") then
@@ -1073,7 +1073,7 @@ ILITHI_2:
                 gosub MOVE 566
                 gosub MOVE 23
             }
-  if "$zoneid" = "67" && "$guild" = "Thief" && matchre("(adan'f|corik)","%detour") then
+  if "$zoneid" = "67" && $Athletics.Ranks > %shardwalls && matchre("(adan'f|corik)","%detour") then
             {
                 gosub MOVE 228
                 pause
