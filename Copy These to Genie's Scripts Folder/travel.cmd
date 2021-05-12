@@ -154,19 +154,23 @@ var lirums 0
 var destination %1
 eval destination tolower("%destination")
 var detour nil
+put wealth
+wait
 TOP:
 pause 0.001
 pause 0.001
-send info;encumbrance
-waitforre ^\s*Encumbrance\s*\:
-action remove Guild\: (\S+)
-action remove Circle\: (\d+)
-pause 0.001
-pause 0.001
-send exp 0
-wait
-pause 0.1
-pause 0.001
+if !def(guild) then
+    {
+        send info;encumbrance
+        waitforre ^\s*Encumbrance\s*\:
+    }   
+if !def(Athletics.Ranks) then
+    {
+        send exp 0
+        wait
+        pause 0.1
+        pause 0.001
+    }
 action remove Circle\: (\d+)
 action remove Guild\: (\S+)
 put #var save
@@ -1338,6 +1342,10 @@ THERENGIA:
             }
   if "$zoneid" = "30" && matchre("(rossman|lang|theren|rakash|muspari|fornsted|el'bain|mriss|merk|hara)","%detour") then
             {
+                if matchre("(mriss|merk|hara)","%detour") then
+                    {
+                        if %lirums < 5000 then goto NOCOIN
+                    }
                 if $Athletics.Ranks < %rossmannorth then
                     {
                         if %lirums < 70 then goto NOCOIN
@@ -1385,6 +1393,7 @@ THERENGIA:
                     }
                 if matchre ("(mriss|merk|hara)","%detour") then
                     {
+                        if %lirums < 5000 then goto NOCOIN
                         gosub MOVE 305
                         gosub JOINLOGIC
                         goto QITRAVEL
@@ -2081,6 +2090,12 @@ NOCOIN:
    if "$zoneid" = "30" then
         {
             var currencyneeded lir
+            if matchre("(mriss|merk|hara)","%detour") then 
+                {
+                    gosub MOVE teller
+                    put withdraw 10 gold
+                    goto COIN.CONTINUE
+                }
             gosub MOVE exchange
             gosub LIRUMS
             if %lirums >= 70 then goto COIN.CONTINUE
@@ -2108,7 +2123,7 @@ NOCOIN:
             gosub MOVE 211
             gosub MOVE exchange
             gosub LIRUMS
-            if %lirums >= 70 then goto COIN.CONTINUE
+            #if %lirums >= 70 then goto COIN.CONTINUE
             gosub MOVE teller
             if matchre ("(mriss|merk|hara)","%detour") then 
                 {
@@ -2199,6 +2214,7 @@ NOCOIN:
 COIN.CONTINUE:
     put #echo >Log Green You exchanged some money to ride the ferry from Zone $zonename!
     ECHO YOU EXCHANGED SOME MONIES, LET'S TRY THIS AGAIN!
+    put wealth
     pause
     goto %label     
 COINQUIT:
@@ -2575,7 +2591,7 @@ MOVE_DIG_STAND:
      send stand
      matchwait
 MOVE_FAILED:
-     evalmath movefailCounter (movefailCounter + 1)
+     evalmath movefailCounter (%movefailCounter + 1)
      if (%movefailCounter > 3) then goto MOVE_FAIL_BAIL
      pause 0.5
      goto MOVE_RESUME
